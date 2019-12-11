@@ -31,7 +31,7 @@
 但这当中人工智能api是否可能会出现失败率？
 我们都知道人工智能出现误判可能性是很大的，容易出现文不对本的情况，但在我们的产品中，api是与数据库一一对应的，出错可能性十分之低。如下：
 - **百度语音合成api**：我已测试该api的转译准确度，无论我提供怎样混乱的文本，它都能准确的朗读出来并且无误，还能提供不同的语速语调声调，而我们的产品只需要该api将我们事先准备好的文本进行转译就行了，所以准确度可高达百分之九十九以上。
-- **相同图片搜索api**：百度相同图片搜索api的数据源是自建库，且支持找到局部内容相同的大图，或适度调整背景和角度的相同图片。该api存在可能误判的因素，如果用户拍摄文物的角度叼转或者主体不明，可能出现判断错误，当然这也是可以通过设置提示来让用户拍准照片，然后照片会和自建图库匹配，已测试准确率百分之百。
+- **相同图片搜索api**：百度相同图片搜索api的数据源是自建库，且支持找到局部内容相同的大图，或适度调整背景和角度的相同图片。该api存在可能误判的因素，如果用户拍摄文物的角度叼转或者主体不明，可能出现判断错误，当然这也是可以通过设置提示来让用户拍准照片，然后照片会和自建图库匹配，已测试准确率百分之百。还有需要检索图和入库的原图要保持场景一致性，否则也有可能出现误差。
 ### 需求列表与人工智能API加值
 | 需求| API|
 | ------ | ------ |
@@ -47,6 +47,114 @@
 ### 口头操作说明
 ## 三、API产品使用关键AI或机器学习之API的输出入展示
 ### API使用
+#### 百度语音合成api
+```
+import urllib
+from urllib.parse import urlencode
+from urllib import request
+import requests
+from urllib.request import urlopen
+import json
 
+host = 'https://openapi.baidu.com/oauth/2.0/token?grant_type=client_credentials&client_id=ZNQXl8BbdL8c2PODqKgAqoqc&client_secret=SSYPWym3vIBnjG1z9Ycvl4GenamyUsoq'
+headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+}
+res = requests.get(url=host, headers=headers).json()
+access_token=res['access_token']
+
+request_url = "http://tsn.baidu.com/text2audio"
+params = {"tex":"床前明月光，疑是地上霜",
+          "tok":access_token,
+          "cuid":"00-FF-D6-C0-9E-E9",
+          'ctp':1,
+          'lan':"zh",     # 中文
+          'spd':5,        # 语速
+          'pit':5,        # 语调
+          'vol':5,        # 音量
+          'per':106,      # 男女声，106是度博文
+          'aue':3}        # 音频格式，3是mp3
+try:
+    r = requests.post(request_url, params = params)
+    print(r.headers)   # 返回的表头
+    text = r.content   # mp3二进制数据
+    
+    # 将mp3的二进制数据保存到本地的mp3
+    f = open("语音合成.mp3", "wb")
+    f.write(text)
+    f.close()
+except Exception as e:
+    print(e)
+
+```
+
+#### 百度相同图片搜索api
+##### 上传
+```
+import base64
+import urllib
+from typing import BinaryIO
+from urllib.parse import urlencode
+from urllib import request
+import requests
+from urllib.request import urlopen
+import json
+
+host = 'https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=7k6PKcANGBCUCdHswpi9FD2N&client_secret=whefVZOK6OSPChoBTg98COom8wMmnqzv'
+headers = {
+    'Content-Type': 'application/x-www-form-urlencoded'
+}
+res = requests.get(url=host, headers=headers).json()
+access_token=res['access_token']
+
+request_url = "https://aip.baidubce.com/rest/2.0/realtime_search/same_hq/add"
+
+f = open('h1.jpg', 'rb')
+img = base64.b64encode(f.read())
+params = {"brief":"{\"name\":\"小度\", \"id\":\"1\"}","image":img,"tags":"1,1"}
+request_url = request_url + "?access_token=" + access_token
+response = requests.post(request_url, data=params, headers=headers)
+if response:
+    print (response.json())
+```
+##### 检索
+```
+request_url = "https://aip.baidubce.com/rest/2.0/realtime_search/same_hq/search"
+f = open('h2.jpg', 'rb')
+img = base64.b64encode(f.read())
+
+params = {"image":img}
+request_url = request_url + "?access_token=" + access_token
+headers = {'content-type': 'application/x-www-form-urlencoded'}
+response = requests.post(request_url, data=params, headers=headers)
+if response:
+    print (response.json())
+```
+##### 删除
+```
+request_url = "https://aip.baidubce.com/rest/2.0/realtime_search/same_hq/delete"
+
+cont_sign = '979961658,2726020645'
+params = {"image":img}
+request_url = request_url + "?access_token=" + access_token
+headers = {'content-type': 'application/x-www-form-urlencoded'}
+response = requests.post(request_url, data=params, headers=headers)
+if response:
+    print (response.json())
+```
+##### 更新
+```
+request_url = "https://aip.baidubce.com/rest/2.0/realtime_search/same_hq/update"
+# 二进制方式打开图片文件
+f = open('h4.jpg', 'rb')
+img = base64.b64encode(f.read())
+
+params = {"image":img}
+request_url = request_url + "?access_token=" + access_token
+headers = {'content-type': 'application/x-www-form-urlencoded'}
+response = requests.post(request_url, data=params, headers=headers)
+if response:
+    print (response.json())
+```
 ### 比较分析
 ### 风险报告
