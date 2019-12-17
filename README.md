@@ -110,7 +110,7 @@ except Exception as e:
 ```
 
 #### 百度相同图片搜索api
-##### 上传
+- 上传
 ```
 import base64
 import urllib
@@ -138,7 +138,7 @@ response = requests.post(request_url, data=params, headers=headers)
 if response:
     print (response.json())
 ```
-##### 检索
+- 检索
 ```
 request_url = "https://aip.baidubce.com/rest/2.0/realtime_search/same_hq/search"
 f = open('h2.jpg', 'rb')
@@ -151,7 +151,7 @@ response = requests.post(request_url, data=params, headers=headers)
 if response:
     print (response.json())
 ```
-##### 删除
+- 删除
 ```
 request_url = "https://aip.baidubce.com/rest/2.0/realtime_search/same_hq/delete"
 
@@ -163,7 +163,7 @@ response = requests.post(request_url, data=params, headers=headers)
 if response:
     print (response.json())
 ```
-##### 更新
+- 更新
 ```
 request_url = "https://aip.baidubce.com/rest/2.0/realtime_search/same_hq/update"
 # 二进制方式打开图片文件
@@ -177,5 +177,38 @@ response = requests.post(request_url, data=params, headers=headers)
 if response:
     print (response.json())
 ```
-### 比较分析
+### 比较分析（内有输入输出限制）
+#### 语音合成API
+- 阿里云
+
+![阿里云声音种类.png](https://upload-images.jianshu.io/upload_images/9860856-4604a18056f622c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![阿里云计费](https://upload-images.jianshu.io/upload_images/9860856-0405d31f7ef00f8f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+- 百度大脑
+![百度.png](https://upload-images.jianshu.io/upload_images/9860856-31bd3498ca7513ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![百度.png](https://upload-images.jianshu.io/upload_images/9860856-3ded69511739db23.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![百度计费png](https://upload-images.jianshu.io/upload_images/9860856-ef1e93f4a2dca211.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+**比较**：
+- 从产品功能服务看，阿里云提供的语音人声模块种类更多更丰富，而亲身去听语调流畅自然。而百度大脑的人声模块较少，但语调也流畅自然。
+- 从价格来看，百度大脑提供的服务是以QPS计算。
+> QPS（query per second）指每秒向服务发送的请求数量峰值，相当于每个API每秒可以允许请求的最大上限数量。
+
+相对于阿里云的计次来算，百度云更占优势，因为我们的app产品是要供多博物馆，多场景人物使用，从QPS来算会更合算。而声音服务百度大脑的语音合成api也能满足绝大多数人的需求。
+因此我选择百度大脑的语音合成api。
+
+#### 相同图片搜索api
+**比较：**
+- 价格上百度大脑是以调用次数计费，图库容量每日有免费扩容的机会。而阿里云则是以图片数量计费。个人觉得百度大脑或更加符合我们图书馆app的需求。而且百度大脑不仅可以利用代码修改图库，也可以通过后台界面进行管理如下图。
+
+![图库.png](https://upload-images.jianshu.io/upload_images/9860856-a7868c93459dc6e6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
 ### 风险报告
+|类别 |风险 |竞争程度 |远景
+|:---:|:---:|:---:|:---:|
+|语音合成api |现今市面上的语音合成api的概率性问题已然不大，因为都是运用对文本的识别转换成语音，这样一一对应的数据库不难出错。 |除了AI概率性问题，现在市场竞争最大的便是功能服务，谁能够做更好的更贴近人类自然的声音谁的服务就更胜一筹，当然还有调用次数以及价格的规定。|语音类发展至未来最有可能出现的是随心所欲的智能交互，智能的神经网络能够快速反应给用户想要的内容。|
+|相同图片搜索api|AI概率性问题：无论是图片的拍摄角度还是上传的图片的色差、模糊程度等都有肯能影响机器判断，从而引发误差。|AI概率提高，精准度提高便能提升市场竞争力。| 可能会结合AR\VR等技术为用户提供更强的视觉体验与搜索功能。|
