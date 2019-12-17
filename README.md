@@ -1,7 +1,7 @@
 # 博物馆“朗读者”APP
 | Target release | 12-4-2019 |
 | ------ | ------ |
-| Document Status | 未完成 |
+| Document Status | 完成 |
 | Document owner | 张杰 |
 | Designer | 张杰 |
 | Developer | 张杰 |
