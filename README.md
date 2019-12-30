@@ -1,7 +1,7 @@
 # 博物馆“朗读者”APP
 | Target release | 12-4-2019 |
 | ------ | ------ |
-| Document Status | 完成 |
+| Document Status | 未完成 |
 | Document owner | 张杰 |
 | Designer | 张杰 |
 | Developer | 张杰 |
@@ -45,23 +45,23 @@
 ## 二、原型设计
 ### 交互及界面设计
 1. **首页页面**
+![首页.png](https://upload-images.jianshu.io/upload_images/9860856-392b53e0d933880f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-这是我们app的首页概览。
-![首页 .png](https://upload-images.jianshu.io/upload_images/9860856-49f7db7bd015a47d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 2. **AI识别界面**
 
-这里应用了相同图片搜索API，用户可以通过对焦想要进行了解的文物，或是从图库上传文物照片来进行AI智能识别。识别跳转得到的信息会由下面播放界面展示。
-![拍摄.png](https://upload-images.jianshu.io/upload_images/9860856-6c9d710cf248e2ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![ai识别.png](https://upload-images.jianshu.io/upload_images/9860856-5b80c3ff5db313b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 3. **播放界面**
 
-该功能通过用户点击播放按钮，进而播出语音api转换而成的音频。
-![播放界面.png](https://upload-images.jianshu.io/upload_images/9860856-269e566801e679c7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![听故事.png](https://upload-images.jianshu.io/upload_images/9860856-099b6d41d0b47889.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 ### 信息设计
 用户可在“我的”页面选择“AI设置”进行AI相关信息设置以及交互。
-![流程.png](https://upload-images.jianshu.io/upload_images/9860856-98455bd061559aff.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![我的.png](https://upload-images.jianshu.io/upload_images/9860856-cc2a381cb18d98ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 ### 原型文档（内附操作说明）
 [博物馆朗读者APP原型文档](http://nfumn099.gitee.io/ai_axure)
