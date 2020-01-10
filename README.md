@@ -1,6 +1,6 @@
 # 博物馆“朗读者”APP
 
-[20x20PPT](https://github.com/a2382570459b/API_ML_AI/blob/1a64f892c67a68b020b76069e77a1423d0c1a87b/%E5%8D%9A%E7%89%A9%E9%A6%86%E6%9C%97%E8%AF%BB%E8%80%85APP.pptx)
+[20x20PPT](https://gitee.com/NFUMN099/API_ppt2/blob/master/%E5%8D%9A%E7%89%A9%E9%A6%86%E6%9C%97%E8%AF%BB%E8%80%85APP.pptx)
 
 | Target release | 12-4-2019 |
 | ------ | ------ |
